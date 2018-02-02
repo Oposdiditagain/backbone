@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="js/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="js/underscore.js"></script>
+    <script type="text/javascript" src="js/backbone.js"></script>
+</head>
+<body>
+        <a href="#/manual">manual</a>
+        <a href="#posts/123">Post 120</a>
+        <a href="#download/test.jpg">download</a>
+        <a href="#route/lulu">LoL</a>
+    <script>
+        var AppRouter = Backbone.Router.extend({
+          routes: {
+            "posts/:id": "getPost",
+            "download/*path": "downloadFile",
+            ":route/:action": "loadView",
+            "manual": "manual",
+            "*actions": "defaultRoute",
+          },
+          getPost: function (id) {
+            alert("id: "+ id);
+          },
+          downloadFile: function(path){
+            alert("path: "+ path);         //
+          },
+          
+          defaultRoute: function (actions) {
+            alert("actions: "+ actions);
+          },
+          loadView: function ( route, action) {
+            alert(route + "_" + action); //
+          },
+          manual: function() {
+		    alert("call manual");
+		    app_router.navigate("/posts/" + 404, {trigger: true, replace: true});
+		  }
+        });
+        var app_router = new AppRouter;
+        Backbone.history.start();
+    </script>
+</body>
+</html>
